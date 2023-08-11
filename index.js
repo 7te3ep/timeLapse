@@ -69,7 +69,7 @@ fetch('pixelwar-43efd-default-rtdb-export.json')
    var history = Object.values(response.data)
    var index = 0
    var mainLoopId = setInterval(function(){
-      for (let i = 0;i < 10; i ++){
+      for (let i = 0;i < 20; i ++){
          if (history[index] == undefined) clearInterval(mainLoopId)
          index++
          let color
@@ -79,5 +79,5 @@ fetch('pixelwar-43efd-default-rtdb-export.json')
          if (history[index].color == "n") color = "#ffffff"
          document.getElementById(`${history[index].id[0]},${history[index].id[1]}`).style.fill = color
       }
-   }, 100);
+   }, 50);
    })
