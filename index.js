@@ -62,6 +62,14 @@ var column = row.selectAll(".square")
    .style("stroke", "#222")
 
 
+var speed = document.getElementById("speed").value 
+
+document.getElementById("speed").addEventListener('input',()=>{
+   speed = document.getElementById("speed").value 
+})
+document.getElementById("speed").addEventListener("change",()=>{
+   speed = document.getElementById("speed").value 
+})
 
 fetch('pixelwar-43efd-default-rtdb-export.json')
 .then(response => response.json())
@@ -69,8 +77,7 @@ fetch('pixelwar-43efd-default-rtdb-export.json')
    var history = Object.values(response.data)
    var index = 0
    var mainLoopId = setInterval(function(){
-      for (let i = 0;i < 20; i ++){
-         if (history[index] == undefined) clearInterval(mainLoopId)
+      for (let i = 0;i < speed * 4; i ++){
          index++
          let color
          if (history[index].color == "g") color = "#00FF8C"
@@ -79,5 +86,8 @@ fetch('pixelwar-43efd-default-rtdb-export.json')
          if (history[index].color == "n") color = "#ffffff"
          document.getElementById(`${history[index].id[0]},${history[index].id[1]}`).style.fill = color
       }
-   }, 50);
+      if (history[index + speed * 4] == undefined){
+         clearInterval(mainLoopId)
+      } 
+   }, (10 - speed) * 10);
    })
